@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+body{
+    background-image: url('./img/backgrond01.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0D0D0D;
+    height: 100vh;
+}
+
+.App{
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    background-color: #D8D9D7;
+    font-family: "Creepster", system-uir;
+    margin: auto;
+    margin-top: 5%;
+    padding: 1rem;
+    border-radius: 10px;
+    height: 80%;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.cont{
+    border: solid 1px red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+
+
+.ahorcado {
+    background-color: #D8D9D7;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+    border-radius: 10px;
+}
+
+.ahorcado h1 {
+    color: #0D0D0D;
+    font-size: 4rem;
+    margin: 0;
+}
+
+.ahorcado h2 {
+    color: #0D0D0D;
+    font-size: 2rem;
+    margin: 0;
+}
+.ahorcado p {
+    color: #0D0D0D;
+    font-size: 1.5rem;
+    margin: 0;
+
+}
+
+.subtitulos{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    text-align: center;
+}
+
+.imagen {
+    margin: 1rem;
+    border: #0D0D0D 2px solid;
+    background-image: url('./img/ahorcado03.jpeg');
+    background-size: cover;
+    background-position: center;
+    width: 60%;
+    height: 60%;
+    transition: all 0.5s;
+}
+
+.hide{
+    display: none;
+    transition: all 1.5s;
+}
+
+.show{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 1.5s;
+
+}
+
+.button{
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: sans-serif;
+    font-weight: 500;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.hg {
+    display: flex;
+    flex-direction: column;
+
+}
