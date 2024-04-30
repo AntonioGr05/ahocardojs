@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import "../index.css"
 
 interface HangmanProps {
@@ -18,7 +18,7 @@ const Hangman = ({ words }: HangmanProps) => {
         container?.classList.toggle('show');
     }
 
-    const displayWord = selectedWord.split('').map((letter, index) => {
+    const displayWord = selectedWord.split('').map((letter) => {
         console.log("selectedWord", selectedWord);
         if (guessedLetters.includes(letter)) {
             console.log("guessedLetter", guessedLetters);
