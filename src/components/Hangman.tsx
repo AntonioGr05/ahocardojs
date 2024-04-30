@@ -9,13 +9,30 @@ const Hangman = ({ words }: HangmanProps) => {
     const [selectedWord, setSelectedWord] = useState(words[0]);
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [errorCount, setErrorCount] = useState(0);
-    
+    const [startTime, setStartTime] = useState<Date | null>(null);
+    const [currentTime, setCurrentTime] = useState<Date | null>(null);
+    const [gameStarted, setGameStarted] = useState(false);
+    const [wordGuessed, setWordGuessed] = useState(false);
+
     console.log('palabras', words);
+
+    useEffect(() => {
+        let timer;
+        if (gameStarted && !wordGuessed) {
+            timer = setInterval(() => {
+                setCurrentTime(new Date());
+            }, 1000);
+        }
+        return () => clearInterval(timer);
+    }, [gameStarted, wordGuessed]);
 
     const showGame = () => {
         const container = document.querySelector('.hide');
         //cambiar el display del contenedor a flex
         container?.classList.toggle('show');
+        setGameStarted(true);
+        setStartTime(new Date());
+        setCurrentTime(new Date());
     }
 
     const displayWord = selectedWord.split('').map((letter) => {
@@ -44,7 +61,21 @@ const Hangman = ({ words }: HangmanProps) => {
         setSelectedWord(newWord);
         setGuessedLetters([]);
         setErrorCount(0);
+        setWordGuessed(false);
+        setGameStarted(true);
+        setStartTime(new Date());
+        setCurrentTime(new Date());
     };
+
+    useEffect(() => {
+        if (displayWord.join('') === selectedWord) {
+            setWordGuessed(true);
+        }else {
+            setWordGuessed(false);
+        }
+    }, [displayWord, selectedWord]);
+
+    const elapsedTime = startTime && currentTime ? Math.floor((currentTime.getTime() - startTime.getTime()) / 1000) : 0;
 
     return (
         <div className="hg">
@@ -56,12 +87,16 @@ const Hangman = ({ words }: HangmanProps) => {
                     <button className="button" onClick={() => {
                         restartGame();
                         setSelectedWord(words[Math.floor(Math.random() * words.length)]);
+                        setWordGuessed(true);
                     }}>Select New Word</button>
                 )}
                 <p> Cantidad de errores {errorCount}</p>
                 {displayWord.join('') === selectedWord && (
                     <p>You won this round!</p>
                 )}
+                
+
+                <p>Time elapsed: {elapsedTime} seconds</p>
             </div>
         </div>
     );
