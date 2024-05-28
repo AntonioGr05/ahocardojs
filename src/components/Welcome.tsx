@@ -1,6 +1,7 @@
-import hangman from '../img/ahorcado03.jpeg'
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
-export default function Welcome(props){
+
+export default function Welcome(props: { category: string | number | boolean | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | ReactPortal | null | undefined; }){
     return(
         <>  <div className="main">
                 <div className="ahorcado">
@@ -15,5 +16,5 @@ export default function Welcome(props){
             </div>
         </>
     );
-};
+}
 

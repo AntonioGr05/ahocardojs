@@ -1,6 +1,6 @@
 import { useState, useEffect  } from "react";
 import "../index.css"
-
+import Timer from './Timer';
 interface HangmanProps {
     words: string[];
 }
@@ -9,31 +9,27 @@ const Hangman = ({ words }: HangmanProps) => {
     const [selectedWord, setSelectedWord] = useState(words[0]);
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [errorCount, setErrorCount] = useState(0);
+
     const [startTime, setStartTime] = useState<Date | null>(null);
-    const [currentTime, setCurrentTime] = useState<Date | null>(null);
     const [gameStarted, setGameStarted] = useState(false);
     const [wordGuessed, setWordGuessed] = useState(false);
 
-    console.log('palabras', words);
+    const [winCount, setWinCount] = useState(0);
 
-    useEffect(() => {
-        let timer;
-        if (gameStarted && !wordGuessed) {
-            timer = setInterval(() => {
-                setCurrentTime(new Date());
-            }, 1000);
-        }
-        return () => clearInterval(timer);
-    }, [gameStarted, wordGuessed]);
+    console.log('palabras', words);
 
     const showGame = () => {
         const container = document.querySelector('.hide');
         //cambiar el display del contenedor a flex
         container?.classList.toggle('show');
         setGameStarted(true);
-        setStartTime(new Date());
-        setCurrentTime(new Date());
     }
+
+    useEffect(() => {
+        if (gameStarted && !wordGuessed) {
+            setStartTime(new Date());
+        }
+    }, [gameStarted, wordGuessed]);
 
     const displayWord = selectedWord.split('').map((letter) => {
         console.log("selectedWord", selectedWord);
@@ -63,8 +59,6 @@ const Hangman = ({ words }: HangmanProps) => {
         setErrorCount(0);
         setWordGuessed(false);
         setGameStarted(true);
-        setStartTime(new Date());
-        setCurrentTime(new Date());
     };
 
     useEffect(() => {
@@ -75,7 +69,12 @@ const Hangman = ({ words }: HangmanProps) => {
         }
     }, [displayWord, selectedWord]);
 
-    const elapsedTime = startTime && currentTime ? Math.floor((currentTime.getTime() - startTime.getTime()) / 1000) : 0;
+/*     useEffect(() => {
+        if (wordGuessed) {
+            setWinCount(winCount + 1);
+        }
+    }, [WordGuessed, winCount]);
+ */
 
     return (
         <div className="hg">
@@ -92,11 +91,13 @@ const Hangman = ({ words }: HangmanProps) => {
                 )}
                 <p> Cantidad de errores {errorCount}</p>
                 {displayWord.join('') === selectedWord && (
-                    <p>You won this round!</p>
+                    <>
+                        <p>You won this round!</p>
+                        <p>Has adivinado la palabra {winCount} veces</p>
+                    </>
                 )}
                 
-
-                <p>Time elapsed: {elapsedTime} seconds</p>
+                {gameStarted && !wordGuessed && <Timer startTime={startTime} />}
             </div>
         </div>
     );
