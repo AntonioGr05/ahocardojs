@@ -13,9 +13,7 @@ const Hangman = ({ words }: HangmanProps) => {
     const [startTime, setStartTime] = useState<Date | null>(null);
     const [gameStarted, setGameStarted] = useState(false);
     const [wordGuessed, setWordGuessed] = useState(false);
-
     const [winCount, setWinCount] = useState(0);
-
     console.log('palabras', words);
 
     const showGame = () => {
@@ -69,16 +67,10 @@ const Hangman = ({ words }: HangmanProps) => {
         }
     }, [displayWord, selectedWord]);
 
-/*     useEffect(() => {
-        if (wordGuessed) {
-            setWinCount(winCount + 1);
-        }
-    }, [WordGuessed, winCount]);
- */
-
     return (
         <div className="hg">
             <button onClick={showGame} className="button"> Start game </button>
+            <p>Has adivinado la palabra {winCount} veces</p>
             <div className="hide">
                 <p>{displayWord.join(' ')}</p>
                 <input maxLength={1} onChange={(e) => handleGuess(e.target.value)} className="inputh"/>
@@ -86,6 +78,9 @@ const Hangman = ({ words }: HangmanProps) => {
                     <button className="button" onClick={() => {
                         restartGame();
                         setSelectedWord(words[Math.floor(Math.random() * words.length)]);
+                        if (displayWord.join('') === selectedWord) {
+                            setWinCount(prevCount => prevCount + 1);
+                        }
                         setWordGuessed(true);
                     }}>Select New Word</button>
                 )}
@@ -93,10 +88,8 @@ const Hangman = ({ words }: HangmanProps) => {
                 {displayWord.join('') === selectedWord && (
                     <>
                         <p>You won this round!</p>
-                        <p>Has adivinado la palabra {winCount} veces</p>
                     </>
                 )}
-                
                 {gameStarted && !wordGuessed && <Timer startTime={startTime} />}
             </div>
         </div>
