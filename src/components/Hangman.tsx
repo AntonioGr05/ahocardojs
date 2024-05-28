@@ -79,7 +79,7 @@ const Hangman = ({ words }: HangmanProps) => {
                         restartGame();
                         setSelectedWord(words[Math.floor(Math.random() * words.length)]);
                         if (displayWord.join('') === selectedWord) {
-                            setWinCount(prevCount => prevCount + 1);
+                            setWinCount(winCount + 1);
                         }
                         setWordGuessed(true);
                     }}>Select New Word</button>
